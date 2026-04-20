@@ -72,29 +72,35 @@ Group chats get isolated sessions per group by default. To enable group message 
 
 ## Channel Routing (multi-agent)
 
-Route different channels to different agents via bindings:
+Route different channels to different agents via top-level `bindings`:
 
 ```json5
 {
   agents: {
     list: [
-      {
-        id: "work",
-        bindings: [
-          { channel: "slack", account: "work-workspace" },
-        ],
-      },
-      {
-        id: "personal",
-        bindings: [
-          { channel: "telegram" },
-          { channel: "whatsapp" },
-        ],
-      },
+      { id: "work" },
+      { id: "personal" },
     ],
   },
+  bindings: [
+    { match: { channel: "slack", teamId: "T123" }, agentId: "work" },
+    { match: { channel: "telegram" }, agentId: "personal" },
+    { match: { channel: "whatsapp" }, agentId: "personal" },
+    // Peer-level match (highest priority, overrides account match):
+    { match: { channel: "line", peer: { kind: "group", id: "C..." } }, agentId: "work" },
+  ],
 }
 ```
+
+Routing priority (highest → lowest):
+1. Exact peer match (`peer.kind` + `peer.id`)
+2. Parent peer match (thread inheritance)
+3. Guild + roles match (Discord)
+4. Guild match (Discord)
+5. Team match (Slack)
+6. Account match (`accountId`)
+7. Channel match (any account)
+8. Default agent
 
 ## Channel-Specific Docs
 

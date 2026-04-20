@@ -52,12 +52,12 @@ Config:
         id: "work",
         workspace: "~/.openclaw/workspace-work",
         agentDir: "~/.openclaw/agents/work/agent",
-        bindings: [
-          { channel: "slack", account: "work-workspace" },
-        ],
       },
     ],
   },
+  bindings: [
+    { match: { channel: "slack", teamId: "T123" }, agentId: "work" },
+  ],
 }
 ```
 
