@@ -32,9 +32,13 @@ openclaw onboard --install-daemon
 openclaw gateway status / run / health
 openclaw dashboard / tui / status
 
+# Performance (suggested for Pi/VM)
+export NODE_COMPILE_CACHE=/var/tmp/openclaw-compile-cache
+export OPENCLAW_NO_RESPAWN=1
+
 # Agent & messaging
-openclaw agent --message "Hello" --thinking high
-openclaw message send --to +1234567890 --message "Text"
+openclaw agent --target +1234567890 --message "Hello" --thinking high
+openclaw message send --target +1234567890 --message "Text"
 
 # Security & maintenance
 openclaw security audit [--fix] [--deep]

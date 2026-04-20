@@ -69,6 +69,22 @@ openclaw config get/set/unset/validate/schema
 }
 ```
 
+## Cross-Context Messaging (Forwarding)
+
+```json5
+{
+  tools: {
+    message: {
+      crossContext: {
+        allowWithinProvider: true,   // Forward within same provider (e.g. Telegram to Telegram)
+        allowAcrossProviders: true,  // Forward across different providers (e.g. Telegram to Discord)
+        marker: { enabled: true, prefix: "[from {channel}] " },
+      },
+    },
+  },
+}
+```
+
 ## Multi-Agent Routing
 
 ```json5

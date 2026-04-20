@@ -1,6 +1,16 @@
 # CLI Commands
 
-Runtime: **Node 24 (recommended) or Node 22.14+**
+Runtime: **Node 24 (recommended) or Node 22.12+**
+
+## Performance Optimization
+
+On small hosts (Pi, VM, etc.), set these environment variables for faster startup:
+
+```bash
+export NODE_COMPILE_CACHE=/var/tmp/openclaw-compile-cache
+mkdir -p /var/tmp/openclaw-compile-cache
+export OPENCLAW_NO_RESPAWN=1
+```
 
 ## Install & Onboard
 
